@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class CharCounter implements Counter<Character> {
     @Override
-    public Map<Character, Integer> count() {
+    public Map<Character, Integer> count(String string) {
         return null;
     }
 }
