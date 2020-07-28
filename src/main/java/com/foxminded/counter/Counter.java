@@ -4,5 +4,5 @@ import java.util.Map;
 
 @FunctionalInterface
 public interface Counter<T> {
-    Map<T, Integer> count(String string);
+    Map<T, Integer> count(String inputString);
 }
