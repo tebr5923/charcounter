@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class CachedCharCounter implements Counter<Character> {
     private final Map<String, Map<Character, Integer>> cachedMap;
-    private final CharCounter charCounter;
+    private final Counter<Character> charCounter;
 
-    public CachedCharCounter() {
+    public CachedCharCounter(Counter<Character> charCounter) {
         this.cachedMap = new HashMap<>();
-        this.charCounter = new CharCounter();
+        this.charCounter = charCounter;
     }
 
     @Override
