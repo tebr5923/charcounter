@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class CharCounterTest {
 
     @Test
-    void divide_shouldThrowIllegalArgumentException_whenDividerIsZero() {
+    void count_shouldThrowIllegalArgumentException_whenStringIsNull() {
         assertThrows(IllegalArgumentException.class, () ->
                 count(null)
         );
