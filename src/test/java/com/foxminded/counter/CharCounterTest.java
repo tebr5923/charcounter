@@ -6,8 +6,16 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CharCounterTest {
+
+    @Test
+    void divide_shouldThrowIllegalArgumentException_whenDividerIsZero() {
+        assertThrows(IllegalArgumentException.class, () ->
+                count(null)
+        );
+    }
 
     @Test
     void count_shouldReturnResult_whenTextIsRandom() {
@@ -24,9 +32,11 @@ class CharCounterTest {
                 .add('!', 3)
                 .build();
 
-        Counter<Character> counter = new CharCounter();
-        Map<Character, Integer> actual = counter.count("Hello World!!!");
-
+        Map<Character, Integer> actual = count("Hello World!!!");
         assertEquals(expected, actual);
+    }
+
+    private Map<Character, Integer> count(String string) {
+        return new CharCounter().count(string);
     }
 }

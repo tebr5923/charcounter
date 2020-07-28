@@ -13,7 +13,7 @@ public class CharCounter implements Counter<Character> {
     @Override
     public Map<Character, Integer> count(String inputString) {
         if (inputString == null) {
-            throw new IllegalStateException("null can't be counted");
+            throw new IllegalArgumentException("null can't be counted");
         }
         for (char ch : inputString.toCharArray()) {
             add(ch);
