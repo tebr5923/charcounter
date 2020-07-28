@@ -18,7 +18,7 @@ class CharCounterTest {
     }
 
     @Test
-    void count_shouldReturnResult_whenTextIsRandom() {
+    void count_shouldReturnResult_whenStringIsRandom() {
         Map<Character, Integer> expected = new HashMapBuilder<Character>()
                 .add('H', 1)
                 .add('H', 1)
@@ -33,6 +33,16 @@ class CharCounterTest {
                 .build();
 
         Map<Character, Integer> actual = count("Hello World!!!");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void count_shouldReturnResult_whenOneCharsString() {
+        Map<Character, Integer> expected = new HashMapBuilder<Character>()
+                .add('1', 9)
+                .build();
+
+        Map<Character, Integer> actual = count("111111111");
         assertEquals(expected, actual);
     }
 
