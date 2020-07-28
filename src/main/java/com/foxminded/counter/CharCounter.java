@@ -13,6 +13,7 @@ public class CharCounter implements Counter<Character> {
     @Override
     public Map<Character, Integer> count(String inputString) {
         checkInputString(inputString);
+        clearMap();
         for (char ch : inputString.toCharArray()) {
             add(ch);
         }
@@ -25,6 +26,12 @@ public class CharCounter implements Counter<Character> {
         }
         if (string.equals("")) {
             throw new IllegalArgumentException("String is empty, can't be counted");
+        }
+    }
+
+    private void clearMap() {
+        if (!map.isEmpty()) {
+            map.clear();
         }
     }
 
