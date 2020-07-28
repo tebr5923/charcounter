@@ -18,6 +18,13 @@ class CharCounterTest {
     }
 
     @Test
+    void count_shouldThrowIllegalArgumentException_whenStringIsEmpty() {
+        assertThrows(IllegalArgumentException.class, () ->
+                count("")
+        );
+    }
+
+    @Test
     void count_shouldReturnResult_whenStringIsRandom() {
         Map<Character, Integer> expected = new HashMapBuilder<Character>()
                 .add('H', 1)
@@ -43,6 +50,16 @@ class CharCounterTest {
                 .build();
 
         Map<Character, Integer> actual = count("111111111");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void count_shouldReturnResult_whenOnlySpacesString() {
+        Map<Character, Integer> expected = new HashMapBuilder<Character>()
+                .add(' ', 5)
+                .build();
+
+        Map<Character, Integer> actual = count("     ");
         assertEquals(expected, actual);
     }
 

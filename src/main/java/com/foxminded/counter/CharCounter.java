@@ -12,13 +12,20 @@ public class CharCounter implements Counter<Character> {
 
     @Override
     public Map<Character, Integer> count(String inputString) {
-        if (inputString == null) {
-            throw new IllegalArgumentException("null can't be counted");
-        }
+        checkInputString(inputString);
         for (char ch : inputString.toCharArray()) {
             add(ch);
         }
         return map;
+    }
+
+    private void checkInputString(String string) {
+        if (string == null) {
+            throw new IllegalArgumentException("null can't be counted");
+        }
+        if (string.equals("")) {
+            throw new IllegalArgumentException("String is empty, can't be counted");
+        }
     }
 
     private void add(char ch) {
