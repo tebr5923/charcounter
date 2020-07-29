@@ -14,12 +14,7 @@ public class CachedCharCounter implements Counter<Character> {
 
     @Override
     public Map<Character, Integer> count(String inputString) {
-
-        if (cachedMap.containsKey(inputString)) {
-            return cachedMap.get(inputString);
-        }
-        Map<Character, Integer> map = charCounter.count(inputString);
-        cachedMap.put(inputString, map);
-        return map;
+        cachedMap.computeIfAbsent(inputString, (String value) -> charCounter.count(inputString));
+        return cachedMap.get(inputString);
     }
 }

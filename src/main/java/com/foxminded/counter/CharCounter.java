@@ -14,9 +14,7 @@ public class CharCounter implements Counter<Character> {
     public Map<Character, Integer> count(String inputString) {
         checkInputString(inputString);
         clearMap();
-        for (char ch : inputString.toCharArray()) {
-            add(ch);
-        }
+        countChars(inputString);
         return map;
     }
 
@@ -30,16 +28,13 @@ public class CharCounter implements Counter<Character> {
     }
 
     private void clearMap() {
-        if (!map.isEmpty()) {
-            map.clear();
-        }
+        map.clear();
     }
 
-    private void add(char ch) {
-        int count = 1;
-        if (map.containsKey(ch)) {
-            count += map.get(ch);
+    private void countChars(String string) {
+        for (char ch : string.toCharArray()) {
+            int count = map.getOrDefault(ch, 0);
+            map.put(ch, count + 1);
         }
-        map.put(ch, count);
     }
 }
