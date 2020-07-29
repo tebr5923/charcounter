@@ -4,18 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CharCounter implements Counter<Character> {
-    private final Map<Character, Integer> map;
-
-    public CharCounter() {
-        this.map = new HashMap<>();
-    }
 
     @Override
     public Map<Character, Integer> count(String inputString) {
         checkInputString(inputString);
-        clearMap();
-        countChars(inputString);
-        return map;
+        return countChars(inputString);
     }
 
     private void checkInputString(String string) {
@@ -27,14 +20,12 @@ public class CharCounter implements Counter<Character> {
         }
     }
 
-    private void clearMap() {
-        map.clear();
-    }
-
-    private void countChars(String string) {
+    private Map<Character, Integer> countChars(String string) {
+        Map<Character, Integer> map = new HashMap<>();
         for (char ch : string.toCharArray()) {
             int count = map.getOrDefault(ch, 0);
             map.put(ch, count + 1);
         }
+        return map;
     }
 }
