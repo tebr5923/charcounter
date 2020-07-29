@@ -1,6 +1,6 @@
 package com.foxminded.counter;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CachedCharCounter implements Counter<Character> {
@@ -8,7 +8,14 @@ public class CachedCharCounter implements Counter<Character> {
     private final Counter<Character> charCounter;
 
     public CachedCharCounter(Counter<Character> charCounter) {
-        this.cachedMap = new HashMap<>();
+        final int MAX_ENTRIES = 10;
+        this.cachedMap = new LinkedHashMap<String, Map<Character, Integer>>
+                (MAX_ENTRIES + 1, .75F, true) {
+            @Override
+            public boolean removeEldestEntry(Map.Entry eldest) {
+                return size() > MAX_ENTRIES;
+            }
+        };
         this.charCounter = charCounter;
     }
 
