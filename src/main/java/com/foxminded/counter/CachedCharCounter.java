@@ -24,4 +24,13 @@ public class CachedCharCounter implements Counter<Character> {
         cachedMap.computeIfAbsent(inputString, (String value) -> charCounter.count(inputString));
         return cachedMap.get(inputString);
     }
+
+    public int size() {
+        return cachedMap.size();
+    }
+
+    public Map<Character, Integer> getCachedCounter(String key) {
+        return cachedMap.get(key);
+    }
+
 }
