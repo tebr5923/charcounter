@@ -26,12 +26,11 @@ class CachedCharCounterTest {
     void setUp() {
         map.put('1', 3);
         when(mockCharCounter.count(Mockito.eq(TEST_STRING))).thenReturn(map);
-
-        cachedCharCounter = new CachedCharCounter(mockCharCounter);
     }
 
     @Test
     void count_shouldReturnCachedResult_whenCalledStringFromCache() {
+        cachedCharCounter = new CachedCharCounter(mockCharCounter);
         cachedCharCounter.count(TEST_STRING);
         cachedCharCounter.count(TEST_STRING);
         cachedCharCounter.count(TEST_STRING);
@@ -41,6 +40,18 @@ class CachedCharCounterTest {
 
     @Test
     void count_shouldNotAffectTheResult() {
+        cachedCharCounter = new CachedCharCounter(mockCharCounter);
         assertSame(mockCharCounter.count(TEST_STRING), cachedCharCounter.count(TEST_STRING));
+    }
+
+    @Test
+    void count_shouldRemoveEldestEntry_whenAddMoreMaxEntries() {
+        cachedCharCounter = new CachedCharCounter(mockCharCounter, 2);
+        cachedCharCounter.count(TEST_STRING);
+        cachedCharCounter.count("TEST_STRING");
+        cachedCharCounter.count("TEST");
+        cachedCharCounter.count(TEST_STRING);
+
+        verify(mockCharCounter, times(2)).count(TEST_STRING);
     }
 }
