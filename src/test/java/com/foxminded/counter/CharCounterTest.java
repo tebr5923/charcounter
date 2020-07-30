@@ -9,40 +9,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CharCounterTest {
+    private final CharCounter charCounter = new CharCounter();
 
     @Test
     void count_shouldThrowIllegalArgumentException_whenStringIsNull() {
         assertThrows(IllegalArgumentException.class, () ->
-                count(null)
+                charCounter.count(null)
         );
     }
 
     @Test
     void count_shouldThrowIllegalArgumentException_whenStringIsEmpty() {
         assertThrows(IllegalArgumentException.class, () ->
-                count("")
+                charCounter.count("")
         );
-    }
-
-    @Test
-    void count_shouldClearMap_whenCallCountTwoTimes() {
-        Map<Character, Integer> expected = new HashMapBuilder<Character>()
-                .add('H', 1)
-                .add('H', 1)
-                .add('e', 1)
-                .add('l', 3)
-                .add('o', 2)
-                .add(' ', 1)
-                .add('W', 1)
-                .add('r', 1)
-                .add('d', 1)
-                .add('!', 3)
-                .build();
-
-        CharCounter charCounter = new CharCounter();
-        charCounter.count("qwe");
-        Map<Character, Integer> actual = charCounter.count("Hello World!!!");
-        assertEquals(expected, actual);
     }
 
     @Test
@@ -60,7 +40,7 @@ class CharCounterTest {
                 .add('!', 3)
                 .build();
 
-        Map<Character, Integer> actual = count("Hello World!!!");
+        Map<Character, Integer> actual = charCounter.count("Hello World!!!");
         assertEquals(expected, actual);
     }
 
@@ -70,7 +50,7 @@ class CharCounterTest {
                 .add('1', 9)
                 .build();
 
-        Map<Character, Integer> actual = count("111111111");
+        Map<Character, Integer> actual = charCounter.count("111111111");
         assertEquals(expected, actual);
     }
 
@@ -80,11 +60,7 @@ class CharCounterTest {
                 .add(' ', 5)
                 .build();
 
-        Map<Character, Integer> actual = count("     ");
+        Map<Character, Integer> actual = charCounter.count("     ");
         assertEquals(expected, actual);
-    }
-
-    private Map<Character, Integer> count(String string) {
-        return new CharCounter().count(string);
     }
 }
