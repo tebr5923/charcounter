@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CachedCharCounterTest {
@@ -37,7 +36,7 @@ class CachedCharCounterTest {
         cachedCharCounter.count(TEST_STRING);
         cachedCharCounter.count(TEST_STRING);
 
-        verify(mockCharCounter).count(TEST_STRING);
+        verify(mockCharCounter, times(1)).count(TEST_STRING);
     }
 
     @Test
