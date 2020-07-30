@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CachedCharCounterTest {
-    private final String TEST_STRING = "111";
+    private static final String TEST_STRING = "111";
     private CachedCharCounter cachedCharCounter;
 
     @Mock
@@ -26,20 +26,20 @@ class CachedCharCounterTest {
     void setUp() {
         Map<Character, Integer> map = new HashMap<>();
         map.put('1', 3);
-        when(mockCharCounter.count(Mockito.eq("TEST_STRING"))).thenReturn(map);
+        when(mockCharCounter.count(Mockito.eq(TEST_STRING))).thenReturn(map);
 
         cachedCharCounter = new CachedCharCounter(mockCharCounter);
     }
 
     @Test
     void count_shouldReturnCachedResult_whenCalledStringFromCache() {
-        cachedCharCounter.count("TEST_STRING");
+        cachedCharCounter.count(TEST_STRING);
 
-        verify(mockCharCounter).count("TEST_STRING");
+        verify(mockCharCounter).count(TEST_STRING);
     }
 
     @Test
     void count_shouldNotAffectTheResult() {
-        assertSame(mockCharCounter.count("TEST_STRING"), cachedCharCounter.count("TEST_STRING"));
+        assertSame(mockCharCounter.count(TEST_STRING), cachedCharCounter.count(TEST_STRING));
     }
 }

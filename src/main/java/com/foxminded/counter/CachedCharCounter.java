@@ -4,21 +4,20 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CachedCharCounter implements Counter<Character> {
-    private final int MAX_ENTRIES;
+    private static final int MAX_ENTRIES = 10;
     private final Map<String, Map<Character, Integer>> cachedMap;
     private final Counter<Character> charCounter;
 
     public CachedCharCounter(Counter<Character> charCounter) {
-        this(charCounter, 10);
+        this(charCounter, MAX_ENTRIES);
     }
 
     public CachedCharCounter(Counter<Character> charCounter, int maxEntries) {
-        this.MAX_ENTRIES = maxEntries;
         this.cachedMap = new LinkedHashMap<String, Map<Character, Integer>>
-                (MAX_ENTRIES + 1, .75F, true) {
+                (maxEntries + 1, .75F, true) {
             @Override
             public boolean removeEldestEntry(Map.Entry eldest) {
-                return size() > MAX_ENTRIES;
+                return size() > maxEntries;
             }
         };
         this.charCounter = charCounter;
