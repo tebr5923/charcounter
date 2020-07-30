@@ -34,6 +34,8 @@ class CachedCharCounterTest {
     @Test
     void count_shouldReturnCachedResult_whenCalledStringFromCache() {
         cachedCharCounter.count(TEST_STRING);
+        cachedCharCounter.count(TEST_STRING);
+        cachedCharCounter.count(TEST_STRING);
 
         verify(mockCharCounter).count(TEST_STRING);
     }
