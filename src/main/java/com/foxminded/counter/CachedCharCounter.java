@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class CachedCharCounter implements Counter<Character> {
     private static final int MAX_ENTRIES = 10;
-    private final Map<String, Map<Character, Integer>> cachedMap;
+    private final Map<String, Map<Character, Long>> cachedMap;
     private final Counter<Character> charCounter;
 
     public CachedCharCounter(Counter<Character> charCounter) {
@@ -13,7 +13,7 @@ public class CachedCharCounter implements Counter<Character> {
     }
 
     public CachedCharCounter(Counter<Character> charCounter, int maxEntries) {
-        this.cachedMap = new LinkedHashMap<String, Map<Character, Integer>>
+        this.cachedMap = new LinkedHashMap<String, Map<Character, Long>>
                 (maxEntries + 1, .75F, true) {
             @Override
             public boolean removeEldestEntry(Map.Entry eldest) {
@@ -24,7 +24,7 @@ public class CachedCharCounter implements Counter<Character> {
     }
 
     @Override
-    public Map<Character, Integer> count(String inputString) {
+    public Map<Character, Long> count(String inputString) {
         return cachedMap.computeIfAbsent(inputString, (String value) -> charCounter.count(inputString));
     }
 }

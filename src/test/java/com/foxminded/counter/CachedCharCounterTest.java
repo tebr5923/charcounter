@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CachedCharCounterTest {
     private static final String TEST_STRING = "111";
-    private final Map<Character, Integer> map = new HashMap<>();
+    private final Map<Character, Long> map = new HashMap<>();
     private CachedCharCounter cachedCharCounter;
 
     @Mock
@@ -24,7 +24,7 @@ class CachedCharCounterTest {
 
     @BeforeEach
     void setUp() {
-        map.put('1', 3);
+        map.put('1', 3L);
         when(mockCharCounter.count(Mockito.eq(TEST_STRING))).thenReturn(map);
     }
 

@@ -4,18 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HashMapBuilder<T> {
-    private final HashMap<T, Integer> hashMap;
+    private final HashMap<T, Long> hashMap;
 
     public HashMapBuilder() {
         this.hashMap = new HashMap<>();
     }
 
-    public HashMapBuilder<T> add(T var, int count) {
+    public HashMapBuilder<T> add(T var, long count) {
         hashMap.put(var, count);
         return this;
     }
 
-    public Map<T, Integer> build() {
+    public Map<T, Long> build() {
         return hashMap;
     }
 }

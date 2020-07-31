@@ -1,9 +1,11 @@
 package com.foxminded.counter;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class CharCounter implements Counter<Character> {
+public class StreamCharCounter implements Counter<Character> {
     @Override
     public Map<Character, Long> count(String inputString) {
         checkInputString(inputString);
@@ -20,11 +22,20 @@ public class CharCounter implements Counter<Character> {
     }
 
     private Map<Character, Long> countChars(String string) {
-        Map<Character, Long> map = new HashMap<>();
-        for (char ch : string.toCharArray()) {
-            long count = map.getOrDefault(ch, 0L);
-            map.put(ch, count + 1);
-        }
+        Stream<Character> stream = toStream(string);
+        Map<Character, Long> map;
+        map = stream.collect(Collectors.groupingBy(t -> t, Collectors.counting()));
         return map;
+    }
+
+    private Stream<Character> toStream(String string) {
+        Character[] characters = new Character[string.length()];
+        //boxed
+        int i = 0;
+        for (char ch : string.toCharArray()) {
+            characters[i] = ch;
+            i++;
+        }
+        return Arrays.stream(characters);
     }
 }

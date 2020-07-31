@@ -8,20 +8,20 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class CharCounterTest {
-    private final CharCounter charCounter = new CharCounter();
+class StreamCharCounterTest {
+    private final StreamCharCounter streamCharCounter = new StreamCharCounter();
 
     @Test
     void count_shouldThrowIllegalArgumentException_whenStringIsNull() {
         assertThrows(IllegalArgumentException.class, () ->
-                charCounter.count(null)
+                streamCharCounter.count(null)
         );
     }
 
     @Test
     void count_shouldThrowIllegalArgumentException_whenStringIsEmpty() {
         assertThrows(IllegalArgumentException.class, () ->
-                charCounter.count("")
+                streamCharCounter.count("")
         );
     }
 
@@ -39,7 +39,7 @@ class CharCounterTest {
                 .add('!', 3)
                 .build();
 
-        Map<Character, Long> actual = charCounter.count("Hello World!!!");
+        Map<Character, Long> actual = streamCharCounter.count("Hello World!!!");
         assertEquals(expected, actual);
     }
 
@@ -49,7 +49,7 @@ class CharCounterTest {
                 .add('1', 9)
                 .build();
 
-        Map<Character, Long> actual = charCounter.count("111111111");
+        Map<Character, Long> actual = streamCharCounter.count("111111111");
         assertEquals(expected, actual);
     }
 
@@ -59,7 +59,7 @@ class CharCounterTest {
                 .add(' ', 5)
                 .build();
 
-        Map<Character, Long> actual = charCounter.count("     ");
+        Map<Character, Long> actual = streamCharCounter.count("     ");
         assertEquals(expected, actual);
     }
 }
