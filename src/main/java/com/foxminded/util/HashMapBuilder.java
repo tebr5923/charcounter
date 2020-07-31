@@ -1,13 +1,13 @@
 package com.foxminded.util;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HashMapBuilder<T> {
-    private final HashMap<T, Long> hashMap;
+    private final LinkedHashMap<T, Long> hashMap;
 
     public HashMapBuilder() {
-        this.hashMap = new HashMap<>();
+        this.hashMap = new LinkedHashMap<>();
     }
 
     public HashMapBuilder<T> add(T var, long count) {

@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CachedCharCounterTest {
     private static final String TEST_STRING = "111";
-    private final Map<Character, Long> map = new HashMap<>();
+    private final Map<Character, Long> map = new LinkedHashMap<>();
     private CachedCharCounter cachedCharCounter;
 
     @Mock
