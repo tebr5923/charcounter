@@ -2,6 +2,7 @@ package com.foxminded.counter;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,7 +25,7 @@ public class StreamCharCounter implements Counter<Character> {
     private Map<Character, Long> countChars(String string) {
         Stream<Character> stream = toStream(string);
         Map<Character, Long> map;
-        map = stream.collect(Collectors.groupingBy(t -> t, Collectors.counting()));
+        map = stream.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         return map;
     }
 
