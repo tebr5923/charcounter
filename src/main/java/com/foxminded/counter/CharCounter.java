@@ -1,6 +1,6 @@
 package com.foxminded.counter;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CharCounter implements Counter<Character> {
@@ -20,7 +20,7 @@ public class CharCounter implements Counter<Character> {
     }
 
     private Map<Character, Long> countChars(String string) {
-        Map<Character, Long> map = new HashMap<>();
+        Map<Character, Long> map = new LinkedHashMap<>();
         for (char ch : string.toCharArray()) {
             long count = map.getOrDefault(ch, 0L);
             map.put(ch, count + 1);
