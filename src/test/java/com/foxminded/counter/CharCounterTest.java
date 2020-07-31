@@ -1,32 +1,42 @@
 package com.foxminded.counter;
 
 import com.foxminded.util.HashMapBuilder;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CharCounterTest {
-    private final CharCounter charCounter = new CharCounter();
+    private static Stream<Arguments> generator() {
+        return Stream.of(
+                Arguments.of(new CharCounter()),
+                Arguments.of(new StreamCharCounter()));
+    }
 
-    @Test
-    void count_shouldThrowIllegalArgumentException_whenStringIsNull() {
+    @ParameterizedTest
+    @MethodSource("generator")
+    void count_shouldThrowIllegalArgumentException_whenStringIsNull(Counter<Character> charCounter) {
         assertThrows(IllegalArgumentException.class, () ->
                 charCounter.count(null)
         );
     }
 
-    @Test
-    void count_shouldThrowIllegalArgumentException_whenStringIsEmpty() {
+    @ParameterizedTest
+    @MethodSource("generator")
+    void count_shouldThrowIllegalArgumentException_whenStringIsEmpty(Counter<Character> charCounter) {
         assertThrows(IllegalArgumentException.class, () ->
                 charCounter.count("")
         );
     }
 
-    @Test
-    void count_shouldReturnResult_whenStringIsRandom() {
+    @ParameterizedTest
+    @MethodSource("generator")
+    void count_shouldReturnResult_whenStringIsRandom(Counter<Character> charCounter) {
         Map<Character, Long> expected = new HashMapBuilder<Character>()
                 .add('H', 1)
                 .add('e', 1)
@@ -43,8 +53,9 @@ class CharCounterTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    void count_shouldReturnResult_whenOneCharsString() {
+    @ParameterizedTest
+    @MethodSource("generator")
+    void count_shouldReturnResult_whenOneCharsString(Counter<Character> charCounter) {
         Map<Character, Long> expected = new HashMapBuilder<Character>()
                 .add('1', 9)
                 .build();
@@ -53,8 +64,9 @@ class CharCounterTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    void count_shouldReturnResult_whenOnlySpacesString() {
+    @ParameterizedTest
+    @MethodSource("generator")
+    void count_shouldReturnResult_whenOnlySpacesString(Counter<Character> charCounter) {
         Map<Character, Long> expected = new HashMapBuilder<Character>()
                 .add(' ', 5)
                 .build();
