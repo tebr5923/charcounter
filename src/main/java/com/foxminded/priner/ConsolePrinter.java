@@ -7,10 +7,6 @@ public class ConsolePrinter implements Printer {
     @Override
     public void print(String string, Map<?, Long> map) {
         System.out.println(string);
-
-        for (Map.Entry<?, Long> entry : map.entrySet()) {
-            System.out.println("\"" + entry.getKey() + "\""
-                    + " - " + entry.getValue());
-        }
+        map.forEach((k, v) -> System.out.println("\"" + k + "\" - " + v));
     }
 }
