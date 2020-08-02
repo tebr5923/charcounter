@@ -1,5 +1,7 @@
 package com.foxminded.counter;
 
+import com.foxminded.storage.CharStorage;
+import com.foxminded.storage.Storage;
 import com.foxminded.util.HashMapBuilder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -37,7 +39,7 @@ class CharCounterTest {
     @ParameterizedTest
     @MethodSource("generator")
     void count_shouldReturnResult_whenStringIsRandom(Counter<Character> charCounter) {
-        Map<Character, Long> expected = new HashMapBuilder<Character>()
+        Map<Character, Long> map = new HashMapBuilder<Character>()
                 .add('H', 1)
                 .add('e', 1)
                 .add('l', 3)
@@ -48,30 +50,36 @@ class CharCounterTest {
                 .add('d', 1)
                 .add('!', 3)
                 .build();
+        String inputString = "Hello World!!!";
+        Storage<Character> expected = new CharStorage(inputString, map);
 
-        Map<Character, Long> actual = charCounter.count("Hello World!!!");
+        Storage<Character> actual = charCounter.count(inputString);
         assertEquals(expected, actual);
     }
 
     @ParameterizedTest
     @MethodSource("generator")
     void count_shouldReturnResult_whenOneCharsString(Counter<Character> charCounter) {
-        Map<Character, Long> expected = new HashMapBuilder<Character>()
+        Map<Character, Long> map = new HashMapBuilder<Character>()
                 .add('1', 9)
                 .build();
+        String inputString = "111111111";
+        Storage<Character> expected = new CharStorage(inputString, map);
 
-        Map<Character, Long> actual = charCounter.count("111111111");
+        Storage<Character> actual = charCounter.count(inputString);
         assertEquals(expected, actual);
     }
 
     @ParameterizedTest
     @MethodSource("generator")
     void count_shouldReturnResult_whenOnlySpacesString(Counter<Character> charCounter) {
-        Map<Character, Long> expected = new HashMapBuilder<Character>()
+        Map<Character, Long> map = new HashMapBuilder<Character>()
                 .add(' ', 5)
                 .build();
+        String inputString = "     ";
+        Storage<Character> expected = new CharStorage(inputString, map);
 
-        Map<Character, Long> actual = charCounter.count("     ");
+        Storage<Character> actual = charCounter.count(inputString);
         assertEquals(expected, actual);
     }
 }

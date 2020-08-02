@@ -1,8 +1,8 @@
 package com.foxminded.counter;
 
-import java.util.Map;
+import com.foxminded.storage.Storage;
 
 @FunctionalInterface
 public interface Counter<T> {
-    Map<T, Long> count(String inputString);
+    Storage<T> count(String inputString);
 }

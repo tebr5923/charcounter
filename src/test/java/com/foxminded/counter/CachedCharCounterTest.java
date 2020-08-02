@@ -1,5 +1,7 @@
 package com.foxminded.counter;
 
+import com.foxminded.storage.CharStorage;
+import com.foxminded.storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,13 +12,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CachedCharCounterTest {
     private static final String TEST_STRING = "111";
-    private final Map<Character, Long> map = new LinkedHashMap<>();
     private CachedCharCounter cachedCharCounter;
 
     @Mock
@@ -24,8 +25,10 @@ class CachedCharCounterTest {
 
     @BeforeEach
     void setUp() {
+        Map<Character, Long> map = new LinkedHashMap<>();
         map.put('1', 3L);
-        when(mockCharCounter.count(Mockito.eq(TEST_STRING))).thenReturn(map);
+        Storage<Character> storage = new CharStorage(TEST_STRING, map);
+        when(mockCharCounter.count(Mockito.eq(TEST_STRING))).thenReturn(storage);
     }
 
     @Test
@@ -41,7 +44,7 @@ class CachedCharCounterTest {
     @Test
     void count_shouldNotAffectTheResult() {
         cachedCharCounter = new CachedCharCounter(mockCharCounter);
-        assertSame(mockCharCounter.count(TEST_STRING), cachedCharCounter.count(TEST_STRING));
+        assertEquals(mockCharCounter.count(TEST_STRING), cachedCharCounter.count(TEST_STRING));
     }
 
     @Test

@@ -1,10 +1,10 @@
 package com.foxminded.counter;
 
-import java.util.Map;
+import com.foxminded.storage.Storage;
 
 public abstract class AbstractCharCounter implements Counter<Character> {
     @Override
-    public Map<Character, Long> count(String inputString) {
+    public Storage<Character> count(String inputString) {
         checkInputString(inputString);
         return countChars(inputString);
     }
@@ -18,5 +18,5 @@ public abstract class AbstractCharCounter implements Counter<Character> {
         }
     }
 
-    protected abstract Map<Character, Long> countChars(String string);
+    protected abstract Storage<Character> countChars(String string);
 }
