@@ -1,12 +1,12 @@
 package com.foxminded.priner;
 
-import java.util.Map;
+import com.foxminded.storage.Storage;
 
 public class ConsolePrinter implements Printer {
     @SuppressWarnings("squid:S106")
     @Override
-    public void print(String string, Map<?, Long> map) {
-        System.out.println(string);
-        map.forEach((k, v) -> System.out.println("\"" + k + "\" - " + v));
+    public void print(Storage<?> storage) {
+        System.out.println(storage.getInputSting());
+        storage.getCountResult().forEach((k, v) -> System.out.println("\"" + k + "\" - " + v));
     }
 }

@@ -1,8 +1,8 @@
 package com.foxminded.priner;
 
-import java.util.Map;
+import com.foxminded.storage.Storage;
 
 @FunctionalInterface
 public interface Printer {
-    public void print(String string, Map<?, Long> map);
+    void print(Storage<?> storage);
 }

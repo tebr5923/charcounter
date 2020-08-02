@@ -1,5 +1,6 @@
 package com.foxminded.priner;
 
+import com.foxminded.storage.CharStorage;
 import com.foxminded.util.HashMapBuilder;
 import com.foxminded.util.LineStringJoiner;
 import org.junit.jupiter.api.AfterEach;
@@ -52,7 +53,8 @@ class ConsolePrinterTest {
                 .add('!', 3)
                 .build();
         Printer printer = new ConsolePrinter();
-        printer.print(inputString, map);
+        printer.print(new CharStorage(inputString, map));
+        //printer.print(inputString, map);
 
         assertEquals(expected.toString(), output.toString());
     }
