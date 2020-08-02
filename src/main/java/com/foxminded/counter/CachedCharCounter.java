@@ -27,13 +27,6 @@ public class CachedCharCounter implements Counter<Character> {
 
     @Override
     public Storage<Character> count(String inputString) {
-        if (cachedMap.get(inputString) == null) {
-            Storage<Character> newValue = charCounter.count(inputString);
-            cachedMap.put(inputString, newValue);
-        }
-        return cachedMap.get(inputString);
-
-        //I think it doesn't work in tests due to null validation in computeIfAbsent()
-        //return cachedMap.computeIfAbsent(inputString, value -> charCounter.count(inputString));
+        return cachedMap.computeIfAbsent(inputString, value -> charCounter.count(inputString));
     }
 }

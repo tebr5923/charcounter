@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ class CachedCharCounterTest {
         Map<Character, Long> map = new LinkedHashMap<>();
         map.put('1', 3L);
         Storage<Character> storage = new CharStorage(TEST_STRING, map);
+        when(mockCharCounter.count(Mockito.any())).thenReturn(new CharStorage("147", new HashMap<>()));
         when(mockCharCounter.count(Mockito.eq(TEST_STRING))).thenReturn(storage);
     }
 
