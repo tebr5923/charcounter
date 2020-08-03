@@ -1,15 +1,10 @@
-package com.foxminded.integration;
+package com.foxminded.priner;
 
 import com.foxminded.counter.CachedCharCounter;
 import com.foxminded.counter.CharCounter;
 import com.foxminded.counter.Counter;
 import com.foxminded.counter.StreamCharCounter;
-import com.foxminded.priner.ConsolePrinter;
-import com.foxminded.priner.Printer;
 import com.foxminded.util.LineStringJoiner;
-import com.foxminded.util.SystemOutputStream;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -18,23 +13,11 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CachedCharCounterConsolePrinterIntegrationTest {
+class CachedCharCounterConsolePrinterIntegrationTest extends SystemOutTest {
     private static Stream<Arguments> generator() {
         return Stream.of(
                 Arguments.of(new CharCounter()),
                 Arguments.of(new StreamCharCounter()));
-    }
-
-    private final SystemOutputStream output = new SystemOutputStream();
-
-    @BeforeEach
-    void setUp() {
-        output.great();
-    }
-
-    @AfterEach
-    void tearDown() {
-        output.setNull();
     }
 
     @ParameterizedTest
@@ -55,7 +38,7 @@ class CachedCharCounterConsolePrinterIntegrationTest {
         String inputString = "Hello World!!!";
         performPrint(inputString, charCounter);
 
-        assertEquals(expected.toString(), output.getOutputAsString());
+        assertEquals(expected.toString(), getOutputAsString());
     }
 
     protected void performPrint(String inputString, Counter<Character> charCounter) {
