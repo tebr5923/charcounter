@@ -1,5 +1,6 @@
 package com.foxminded.storage;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ public class CharStorage implements Storage<Character, String> {
 
     public CharStorage(String inputString, Map<Character, Long> countResult) {
         this.inputString = inputString;
-        this.countResult = countResult;
+        this.countResult = Collections.unmodifiableMap(countResult);
     }
 
     @Override
