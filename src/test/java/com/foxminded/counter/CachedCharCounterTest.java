@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,7 +46,7 @@ class CachedCharCounterTest {
     @Test
     void count_shouldNotAffectTheResult() {
         cachedCharCounter = new CachedCharCounter(mockCharCounter);
-        assertEquals(mockCharCounter.count(TEST_STRING), cachedCharCounter.count(TEST_STRING));
+        assertSame(mockCharCounter.count(TEST_STRING), cachedCharCounter.count(TEST_STRING));
     }
 
     @Test

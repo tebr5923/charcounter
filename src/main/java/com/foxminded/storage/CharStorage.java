@@ -4,12 +4,12 @@ import java.util.Map;
 import java.util.Objects;
 
 public class CharStorage implements Storage<Character> {
-    private final Map<Character, Long> countResult;
     private final String inputString;
+    private final Map<Character, Long> countResult;
 
     public CharStorage(String inputString, Map<Character, Long> countResult) {
-        this.countResult = countResult;
         this.inputString = inputString;
+        this.countResult = countResult;
     }
 
     @Override
