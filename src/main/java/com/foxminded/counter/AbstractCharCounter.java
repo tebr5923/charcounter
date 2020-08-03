@@ -4,7 +4,7 @@ import com.foxminded.storage.Storage;
 
 public abstract class AbstractCharCounter implements Counter<Character> {
     @Override
-    public Storage<Character> count(String inputString) {
+    public Storage<Character, String> count(String inputString) {
         checkInputString(inputString);
         return countChars(inputString);
     }
@@ -18,5 +18,5 @@ public abstract class AbstractCharCounter implements Counter<Character> {
         }
     }
 
-    protected abstract Storage<Character> countChars(String string);
+    protected abstract Storage<Character, String> countChars(String string);
 }

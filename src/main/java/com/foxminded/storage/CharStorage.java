@@ -3,7 +3,7 @@ package com.foxminded.storage;
 import java.util.Map;
 import java.util.Objects;
 
-public class CharStorage implements Storage<Character> {
+public class CharStorage implements Storage<Character, String> {
     private final String inputString;
     private final Map<Character, Long> countResult;
 
@@ -18,7 +18,7 @@ public class CharStorage implements Storage<Character> {
     }
 
     @Override
-    public String getInputSting() {
+    public String getInputValue() {
         return inputString;
     }
 

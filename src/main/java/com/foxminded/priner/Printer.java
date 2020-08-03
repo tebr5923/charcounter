@@ -4,5 +4,5 @@ import com.foxminded.storage.Storage;
 
 @FunctionalInterface
 public interface Printer {
-    void print(Storage<?> storage);
+    void print(Storage<?, String> storage);
 }

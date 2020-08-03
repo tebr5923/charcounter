@@ -10,8 +10,9 @@ import java.util.stream.Collectors;
 
 public class StreamCharCounter extends AbstractCharCounter {
     @Override
-    protected Storage<Character> countChars(String string) {
-        Map<Character, Long> map = string.chars()
+    protected Storage<Character, String> countChars(String string) {
+        Map<Character, Long> map;
+        map = string.chars()
                 .mapToObj(ch -> (char) ch)
                 .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()));
         return new CharStorage(string, map);

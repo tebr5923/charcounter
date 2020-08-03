@@ -2,8 +2,8 @@ package com.foxminded.storage;
 
 import java.util.Map;
 
-public interface Storage<T> {
+public interface Storage<T, V> {
     Map<T, Long> getCountResult();
 
-    String getInputSting();
+    V getInputValue();
 }

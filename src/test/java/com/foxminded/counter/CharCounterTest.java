@@ -51,9 +51,9 @@ class CharCounterTest {
                 .add('!', 3)
                 .build();
         String inputString = "Hello World!!!";
-        Storage<Character> expected = new CharStorage(inputString, map);
+        Storage<Character, String> expected = new CharStorage(inputString, map);
 
-        Storage<Character> actual = charCounter.count(inputString);
+        Storage<Character, String> actual = charCounter.count(inputString);
         assertEquals(expected, actual);
     }
 
@@ -64,9 +64,9 @@ class CharCounterTest {
                 .add('1', 9)
                 .build();
         String inputString = "111111111";
-        Storage<Character> expected = new CharStorage(inputString, map);
+        Storage<Character, String> expected = new CharStorage(inputString, map);
 
-        Storage<Character> actual = charCounter.count(inputString);
+        Storage<Character, String> actual = charCounter.count(inputString);
         assertEquals(expected, actual);
     }
 
@@ -77,9 +77,9 @@ class CharCounterTest {
                 .add(' ', 5)
                 .build();
         String inputString = "     ";
-        Storage<Character> expected = new CharStorage(inputString, map);
+        Storage<Character, String> expected = new CharStorage(inputString, map);
 
-        Storage<Character> actual = charCounter.count(inputString);
+        Storage<Character, String> actual = charCounter.count(inputString);
         assertEquals(expected, actual);
     }
 }
