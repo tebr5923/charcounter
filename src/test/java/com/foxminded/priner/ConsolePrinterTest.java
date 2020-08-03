@@ -3,27 +3,26 @@ package com.foxminded.priner;
 import com.foxminded.storage.CharStorage;
 import com.foxminded.util.HashMapBuilder;
 import com.foxminded.util.LineStringJoiner;
+import com.foxminded.util.SystemOutputStream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConsolePrinterTest {
-    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
+    private final SystemOutputStream output = new SystemOutputStream();
 
     @BeforeEach
     void setUp() {
-        System.setOut(new PrintStream(output));
+        output.great();
     }
 
     @AfterEach
     void tearDown() {
-        System.setOut(null);
+        output.setNull();
     }
 
     @Test
@@ -55,10 +54,6 @@ class ConsolePrinterTest {
         Printer printer = new ConsolePrinter();
         printer.print(new CharStorage(inputString, map));
 
-        assertEquals(expected.toString(), getOutputAsString());
-    }
-
-    protected String getOutputAsString() {
-        return output.toString();
+        assertEquals(expected.toString(), output.getOutputAsString());
     }
 }
