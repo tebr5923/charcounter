@@ -2,7 +2,7 @@ package com.foxminded.counter;
 
 import com.foxminded.storage.Storage;
 
-public abstract class AbstractCharCounter implements Counter<Character> {
+public abstract class AbstractCharStringCounter implements StringCounter<Character> {
     @Override
     public Storage<Character, String> count(String inputString) {
         checkInputString(inputString);

@@ -5,16 +5,16 @@ import com.foxminded.storage.Storage;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CachedCharCounter implements Counter<Character> {
+public class CachedCharStringCounter implements StringCounter<Character> {
     private static final int MAX_ENTRIES = 10;
     private final Map<String, Storage<Character, String>> cachedMap;
-    private final Counter<Character> charCounter;
+    private final StringCounter<Character> charStringCounter;
 
-    public CachedCharCounter(Counter<Character> charCounter) {
-        this(charCounter, MAX_ENTRIES);
+    public CachedCharStringCounter(StringCounter<Character> charStringCounter) {
+        this(charStringCounter, MAX_ENTRIES);
     }
 
-    public CachedCharCounter(Counter<Character> charCounter, int maxEntries) {
+    public CachedCharStringCounter(StringCounter<Character> charStringCounter, int maxEntries) {
         this.cachedMap = new LinkedHashMap<String, Storage<Character, String>>
                 (maxEntries + 1, .75F, true) {
             @Override
@@ -22,11 +22,11 @@ public class CachedCharCounter implements Counter<Character> {
                 return size() > maxEntries;
             }
         };
-        this.charCounter = charCounter;
+        this.charStringCounter = charStringCounter;
     }
 
     @Override
     public Storage<Character, String> count(String inputString) {
-        return cachedMap.computeIfAbsent(inputString, value -> charCounter.count(inputString));
+        return cachedMap.computeIfAbsent(inputString, value -> charStringCounter.count(inputString));
     }
 }

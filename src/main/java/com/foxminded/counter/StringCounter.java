@@ -3,6 +3,6 @@ package com.foxminded.counter;
 import com.foxminded.storage.Storage;
 
 @FunctionalInterface
-public interface Counter<T> {
+public interface StringCounter<T> {
     Storage<T, String> count(String inputString);
 }

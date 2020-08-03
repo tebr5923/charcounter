@@ -17,46 +17,46 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CachedCharCounterTest {
+class CachedCharStringCounterTest {
     private static final String TEST_STRING = "111";
-    private CachedCharCounter cachedCharCounter;
+    private CachedCharStringCounter cachedCharCounter;
 
     @Mock
-    private Counter<Character> mockCharCounter;
+    private StringCounter<Character> mockCharStringCounter;
 
     @BeforeEach
     void setUp() {
         Map<Character, Long> map = new LinkedHashMap<>();
         map.put('1', 3L);
         Storage<Character, String> storage = new CharStorage(TEST_STRING, map);
-        when(mockCharCounter.count(Mockito.any())).thenReturn(new CharStorage("147", new HashMap<>()));
-        when(mockCharCounter.count(Mockito.eq(TEST_STRING))).thenReturn(storage);
+        when(mockCharStringCounter.count(Mockito.any())).thenReturn(new CharStorage("147", new HashMap<>()));
+        when(mockCharStringCounter.count(Mockito.eq(TEST_STRING))).thenReturn(storage);
     }
 
     @Test
     void count_shouldReturnCachedResult_whenCalledStringFromCache() {
-        cachedCharCounter = new CachedCharCounter(mockCharCounter);
+        cachedCharCounter = new CachedCharStringCounter(mockCharStringCounter);
         cachedCharCounter.count(TEST_STRING);
         cachedCharCounter.count(TEST_STRING);
         cachedCharCounter.count(TEST_STRING);
 
-        verify(mockCharCounter, times(1)).count(TEST_STRING);
+        verify(mockCharStringCounter, times(1)).count(TEST_STRING);
     }
 
     @Test
     void count_shouldNotAffectTheResult() {
-        cachedCharCounter = new CachedCharCounter(mockCharCounter);
-        assertSame(mockCharCounter.count(TEST_STRING), cachedCharCounter.count(TEST_STRING));
+        cachedCharCounter = new CachedCharStringCounter(mockCharStringCounter);
+        assertSame(mockCharStringCounter.count(TEST_STRING), cachedCharCounter.count(TEST_STRING));
     }
 
     @Test
     void count_shouldRemoveEldestEntry_whenAddMoreMaxEntries() {
-        cachedCharCounter = new CachedCharCounter(mockCharCounter, 2);
+        cachedCharCounter = new CachedCharStringCounter(mockCharStringCounter, 2);
         cachedCharCounter.count(TEST_STRING);
         cachedCharCounter.count("TEST_STRING");
         cachedCharCounter.count("TEST");
         cachedCharCounter.count(TEST_STRING);
 
-        verify(mockCharCounter, times(2)).count(TEST_STRING);
+        verify(mockCharStringCounter, times(2)).count(TEST_STRING);
     }
 }

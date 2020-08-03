@@ -1,9 +1,9 @@
 package com.foxminded.priner;
 
-import com.foxminded.counter.CachedCharCounter;
-import com.foxminded.counter.CharCounter;
-import com.foxminded.counter.Counter;
-import com.foxminded.counter.StreamCharCounter;
+import com.foxminded.counter.CachedCharStringCounter;
+import com.foxminded.counter.CharStringCounter;
+import com.foxminded.counter.StringCounter;
+import com.foxminded.counter.StreamCharStringCounter;
 import com.foxminded.util.LineStringJoiner;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,16 +13,16 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CachedCharCounterConsolePrinterIntegrationTest extends SystemOutTest {
+class CachedCharStringCounterConsolePrinterIntegrationTest extends SystemOutTest {
     private static Stream<Arguments> generator() {
         return Stream.of(
-                Arguments.of(new CharCounter()),
-                Arguments.of(new StreamCharCounter()));
+                Arguments.of(new CharStringCounter()),
+                Arguments.of(new StreamCharStringCounter()));
     }
 
     @ParameterizedTest
     @MethodSource("generator")
-    void printCachedCharCounter_shouldPrintCorrectResultToSystemOut(Counter<Character> charCounter) {
+    void printCachedCharCounter_shouldPrintCorrectResultToSystemOut(StringCounter<Character> charStringCounter) {
         LineStringJoiner expected = new LineStringJoiner()
                 .add("Hello World!!!")
                 .add("\"H\" - 1")
@@ -36,14 +36,14 @@ class CachedCharCounterConsolePrinterIntegrationTest extends SystemOutTest {
                 .add("\"!\" - 3");
 
         String inputString = "Hello World!!!";
-        performPrint(inputString, charCounter);
+        performPrint(inputString, charStringCounter);
 
         assertEquals(expected.toString(), getOutputAsString());
     }
 
-    protected void performPrint(String inputString, Counter<Character> charCounter) {
-        Counter<Character> counter = new CachedCharCounter(charCounter);
+    protected void performPrint(String inputString, StringCounter<Character> charStringCounter) {
+        StringCounter<Character> stringCounter = new CachedCharStringCounter(charStringCounter);
         Printer printer = new ConsolePrinter();
-        printer.print(counter.count(inputString));
+        printer.print(stringCounter.count(inputString));
     }
 }

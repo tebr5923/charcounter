@@ -5,17 +5,16 @@ import com.foxminded.storage.Storage;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-public class CharCounter extends AbstractCharCounter {
+public class StreamCharStringCounter extends AbstractCharStringCounter {
     @Override
     protected Storage<Character, String> countChars(String string) {
         Map<Character, Long> map;
-        map = new LinkedHashMap<>();
-        for (char ch : string.toCharArray()) {
-            long count;
-            count = map.getOrDefault(ch, 0L);
-            map.put(ch, count + 1);
-        }
+        map = string.chars()
+                .mapToObj(ch -> (char) ch)
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()));
         return new CharStorage(string, map);
     }
 }

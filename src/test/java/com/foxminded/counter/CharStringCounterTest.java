@@ -13,32 +13,32 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class CharCounterTest {
+class CharStringCounterTest {
     private static Stream<Arguments> generator() {
         return Stream.of(
-                Arguments.of(new CharCounter()),
-                Arguments.of(new StreamCharCounter()));
+                Arguments.of(new CharStringCounter()),
+                Arguments.of(new StreamCharStringCounter()));
     }
 
     @ParameterizedTest
     @MethodSource("generator")
-    void count_shouldThrowIllegalArgumentException_whenStringIsNull(Counter<Character> charCounter) {
+    void count_shouldThrowIllegalArgumentException_whenStringIsNull(StringCounter<Character> charStringCounter) {
         assertThrows(IllegalArgumentException.class, () ->
-                charCounter.count(null)
+                charStringCounter.count(null)
         );
     }
 
     @ParameterizedTest
     @MethodSource("generator")
-    void count_shouldThrowIllegalArgumentException_whenStringIsEmpty(Counter<Character> charCounter) {
+    void count_shouldThrowIllegalArgumentException_whenStringIsEmpty(StringCounter<Character> charStringCounter) {
         assertThrows(IllegalArgumentException.class, () ->
-                charCounter.count("")
+                charStringCounter.count("")
         );
     }
 
     @ParameterizedTest
     @MethodSource("generator")
-    void count_shouldReturnResult_whenStringIsRandom(Counter<Character> charCounter) {
+    void count_shouldReturnResult_whenStringIsRandom(StringCounter<Character> charStringCounter) {
         Map<Character, Long> map = new HashMapBuilder<Character>()
                 .add('H', 1)
                 .add('e', 1)
@@ -53,33 +53,33 @@ class CharCounterTest {
         String inputString = "Hello World!!!";
         Storage<Character, String> expected = new CharStorage(inputString, map);
 
-        Storage<Character, String> actual = charCounter.count(inputString);
+        Storage<Character, String> actual = charStringCounter.count(inputString);
         assertEquals(expected, actual);
     }
 
     @ParameterizedTest
     @MethodSource("generator")
-    void count_shouldReturnResult_whenOneCharsString(Counter<Character> charCounter) {
+    void count_shouldReturnResult_whenOneCharsString(StringCounter<Character> charStringCounter) {
         Map<Character, Long> map = new HashMapBuilder<Character>()
                 .add('1', 9)
                 .build();
         String inputString = "111111111";
         Storage<Character, String> expected = new CharStorage(inputString, map);
 
-        Storage<Character, String> actual = charCounter.count(inputString);
+        Storage<Character, String> actual = charStringCounter.count(inputString);
         assertEquals(expected, actual);
     }
 
     @ParameterizedTest
     @MethodSource("generator")
-    void count_shouldReturnResult_whenOnlySpacesString(Counter<Character> charCounter) {
+    void count_shouldReturnResult_whenOnlySpacesString(StringCounter<Character> charStringCounter) {
         Map<Character, Long> map = new HashMapBuilder<Character>()
                 .add(' ', 5)
                 .build();
         String inputString = "     ";
         Storage<Character, String> expected = new CharStorage(inputString, map);
 
-        Storage<Character, String> actual = charCounter.count(inputString);
+        Storage<Character, String> actual = charStringCounter.count(inputString);
         assertEquals(expected, actual);
     }
 }
